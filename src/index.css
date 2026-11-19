@@ -13,7 +13,6 @@ body {
   overflow: hidden;
 }
 
-/* Floating panel chrome */
 .panel {
   position: absolute;
   background: rgba(13, 20, 32, 0.92);
@@ -23,8 +22,8 @@ body {
   backdrop-filter: blur(12px);
   color: #e2e8f0;
   font-size: 13px;
-  min-width: 240px;
-  max-width: 360px;
+  min-width: 260px;
+  max-width: 340px;
   z-index: 10;
   user-select: none;
 }
@@ -37,8 +36,10 @@ body {
   border-bottom: 1px solid #1e293b;
   cursor: grab;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   color: #06b6d4;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .panel-header:active {
@@ -59,7 +60,17 @@ body {
   font-size: 12px;
 }
 
-.panel button:hover {
+.panel button:hover:not(:disabled) {
   border-color: #06b6d4;
   color: #06b6d4;
+}
+
+.panel button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.panel input[type='range'] {
+  width: 100%;
+  accent-color: #06b6d4;
 }
