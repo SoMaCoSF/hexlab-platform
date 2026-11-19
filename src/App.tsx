@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Grid } from '@react-three/drei'
 import { HexWorld } from './platform/HexWorld'
+import { Lighting } from './platform/Lighting'
 import { FloatingPanels } from './panels/FloatingPanels'
 
 export default function App() {
@@ -14,30 +15,32 @@ export default function App() {
           HEXLAB<span style={{ color: '#06b6d4' }}>.SOMACOSF.COM</span>
         </div>
         <div style={{ fontSize: 10, opacity: 0.55, fontFamily: 'ui-monospace, monospace', marginTop: 2 }}>
-          MODULAR TRI-AXIAL MARINE ARCHITECTURE · ANYMACHINE REV 4.2
+          MODULAR TRI-AXIAL MARINE ARCHITECTURE · ANYMACHINE / ANYKIT CONSTRUCTION SET
         </div>
       </div>
 
       <Canvas
-        camera={{ position: [16, 18, 16], fov: 42 }}
+        camera={{ position: [18, 20, 18], fov: 40 }}
         style={{ position: 'absolute', inset: 0 }}
         shadows
+        gl={{ antialias: true, toneMapping: 3 }}
       >
-        <color attach="background" args={['#070B12']} />
-        <fog attach="fog" args={['#070B12', 28, 60]} />
-        <ambientLight intensity={0.35} />
-        <directionalLight position={[14, 24, 10]} intensity={1.2} castShadow />
+        <color attach="background" args={['#0a1220']} />
+        <fog attach="fog" args={['#0a1220', 32, 70]} />
+        <Lighting />
         <HexWorld />
         <Grid
-          args={[60, 60]}
+          args={[80, 80]}
           cellSize={1}
-          cellThickness={0.3}
-          sectionSize={3}
-          sectionThickness={0.85}
-          fadeDistance={40}
+          cellThickness={0.25}
+          sectionSize={4}
+          sectionThickness={0.7}
+          sectionColor="#1e3a5f"
+          cellColor="#132033"
+          fadeDistance={50}
           position={[0, -0.02, 0]}
         />
-        <OrbitControls makeDefault maxPolarAngle={Math.PI / 2.05} minDistance={8} maxDistance={50} />
+        <OrbitControls makeDefault maxPolarAngle={Math.PI / 2.05} minDistance={6} maxDistance={60} />
       </Canvas>
 
       <FloatingPanels />
