@@ -52,12 +52,10 @@ function Panel({
 }
 
 function ModuleInspector() {
-  const selected = usePlatform((s) => s.getSelected())
   const selectedId = usePlatform((s) => s.selectedId)
   const setGate = usePlatform((s) => s.setGate)
   const setBallast = usePlatform((s) => s.setBallast)
   const addStack = usePlatform((s) => s.addStack)
-  // re-render when selection or cell values change
   const cells = usePlatform((s) => s.cells)
   const cell = cells.find((c) => c.id === selectedId) ?? null
 
@@ -172,7 +170,6 @@ function VoiceConsole() {
   const addStack = usePlatform((s) => s.addStack)
   const addHex = usePlatform((s) => s.addHex)
 
-  // crude keyword stub — real spoken-world loop later
   const runCommand = (text: string) => {
     const t = text.toLowerCase()
     setLog((l) => [`› ${text}`, ...l].slice(0, 6))

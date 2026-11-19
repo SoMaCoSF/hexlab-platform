@@ -49,13 +49,11 @@ function Inframodule({ cell }: { cell: HexCell }) {
     return g
   }, [shape, height])
 
-  // Gate panels — six faces that raise with gateOpen
   const gateRefs = useRef<(THREE.Mesh | null)[]>([])
   useFrame(() => {
     const open = cell.gateOpen
-    gateRefs.current.forEach((m, i) => {
+    gateRefs.current.forEach((m) => {
       if (!m) return
-      // swing up around outer edge
       m.rotation.x = -open * (Math.PI / 2.4)
       m.position.y = height + open * 0.15
     })
@@ -67,8 +65,6 @@ function Inframodule({ cell }: { cell: HexCell }) {
   }
 
   const color = kindColor(cell.kind, selected)
-
-  // ballast water surface inside (lowers as drained)
   const waterY = 0.08 + (1 - cell.ballastDrain) * (height * 0.35)
 
   return (
@@ -83,7 +79,6 @@ function Inframodule({ cell }: { cell: HexCell }) {
         <meshStandardMaterial color={color} metalness={0.35} roughness={0.5} />
       </mesh>
 
-      {/* selection ring */}
       {selected && (
         <mesh position={[0, 0.02, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <ringGeometry args={[HEX_SIZE * 0.92, HEX_SIZE * 1.05, 6]} />
@@ -91,7 +86,6 @@ function Inframodule({ cell }: { cell: HexCell }) {
         </mesh>
       )}
 
-      {/* ballast water */}
       {(cell.kind === 'module' || cell.kind === 'drydock' || cell.kind === 'harbor') && (
         <mesh position={[0, waterY, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <circleGeometry args={[HEX_SIZE * 0.7, 6]} />
@@ -105,7 +99,6 @@ function Inframodule({ cell }: { cell: HexCell }) {
         </mesh>
       )}
 
-      {/* six gate flaps on perimeter */}
       {cell.kind !== 'corner' &&
         [0, 1, 2, 3, 4, 5].map((i) => {
           const angle = (Math.PI / 3) * i - Math.PI / 6
@@ -124,7 +117,6 @@ function Inframodule({ cell }: { cell: HexCell }) {
           )
         })}
 
-      {/* stack decks */}
       {cell.stacked > 0 &&
         Array.from({ length: cell.stacked }).map((_, i) => (
           <mesh key={i} position={[0, baseHeight + (i + 0.5) * 0.35, 0]}>
